@@ -7,7 +7,6 @@ Description		: my loop file sytem main routine
 #include <linux/fs.h>
 
 #include "loopfs.h"
-#include "loopfs_util.h"
 
 
 #define	LOOPFS_VERSION_STRING		"loopfs_0.01"
@@ -38,14 +37,14 @@ static struct dentry* loopfs_mount(struct file_system_type *fs_type,
 									const char *dev_name,
 									void *data)
 {
-	DBG_PRINT("i am not yet implemented.\n");
+	LDBG("I am not yet implemented.");
 	return (NULL);
 }
 
 
 static int __init init_loopfs(void)
 {
-	DBG_PRINT("Hello, world\n");
+	LDBG("Hello, world!");
 
 	return (register_filesystem(&loopfs_fstype));
 }
@@ -59,7 +58,7 @@ static int __init init_loopfs(void)
  */
 static void __exit exit_loopfs(void)
 {
-	DBG_PRINT("Good-bye!\n");
+	LDBG("Good-bye!");
 
 	unregister_filesystem(&loopfs_fstype);
 }
