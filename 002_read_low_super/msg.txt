@@ -1,0 +1,64 @@
+root@stephen:/home/stephen/devcloud/proj/my_wrap_fs/002_read_low_super# dmesg -c
+[  207.246962] <LOOPFS> Mount entry, dev name: /home/stephen/devcloud/proj/my_wrap_fs/mnt.
+[  207.246988] <LOOPFS> Print information about lower super block.
+[  207.246988] <LOOPFS> dev number = 8388613
+[  207.246989] <LOOPFS> block size in bits = 12
+[  207.246989] <LOOPFS> block size = 4096
+[  207.246989] <LOOPFS> max file size = 17592186040320
+[  207.246989] <LOOPFS> file system name = ext4
+[  207.246990] <LOOPFS> file system flags = 1
+[  207.246990] <LOOPFS> file system magic = 61267
+[  207.246990] <LOOPFS> file system root name = /
+[  207.246991] <LOOPFS> file system be refered count = 1
+[  207.246991] <LOOPFS> file system active = 22
+[  207.246994] BUG: kernel NULL pointer dereference, address: 0000000000000068
+[  207.246996] #PF: supervisor read access in kernel mode
+[  207.246996] #PF: error_code(0x0000) - not-present page
+[  207.246997] PGD 0 P4D 0 
+[  207.246999] Oops: 0000 [#1] SMP PTI
+[  207.247001] CPU: 2 PID: 4605 Comm: mount Tainted: G           OE     5.8.0-63-generic #71~20.04.1-Ubuntu
+[  207.247001] Hardware name: VMware, Inc. VMware Virtual Platform/440BX Desktop Reference Platform, BIOS 6.00 04/13/2018
+[  207.247004] RIP: 0010:legacy_get_tree+0x33/0x50
+[  207.247005] Code: 53 48 89 fb 48 8b 7f 28 48 8b 4b 30 48 8b 53 70 8b b3 88 00 00 00 48 8b 47 20 48 8b 09 e8 25 0f ad 00 48 3d 00 f0 ff ff 77 0d <48> 83 78 68 00 74 09 48 89 43 40 31 c0 5b 5d c3 0f 0b 66 66 2e 0f
+[  207.247006] RSP: 0018:ffffb30241aafe60 EFLAGS: 00010207
+[  207.247007] RAX: 0000000000000000 RBX: ffff8b81545f69c0 RCX: 0000000000000027
+[  207.247008] RDX: 0000000000000000 RSI: 0000000000000082 RDI: ffff8b81b5e98cd8
+[  207.247008] RBP: ffffb30241aafe68 R08: ffff8b81b5e98cd0 R09: 0000000000000004
+[  207.247009] R10: 0000000000000000 R11: 0000000000000001 R12: ffff8b81545f69c0
+[  207.247009] R13: 0000000000000000 R14: ffff8b81684fccc0 R15: ffff8b81545f69c0
+[  207.247010] FS:  00007f97d32ad840(0000) GS:ffff8b81b5e80000(0000) knlGS:0000000000000000
+[  207.247011] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  207.247011] CR2: 0000000000000068 CR3: 000000021903a002 CR4: 00000000003606e0
+[  207.247153] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+[  207.247154] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+[  207.247154] Call Trace:
+[  207.247158]  vfs_get_tree+0x2a/0xc0
+[  207.247160]  ? capable+0x19/0x20
+[  207.247162]  do_mount+0x7a8/0xa20
+[  207.247163]  __x64_sys_mount+0x8b/0xe0
+[  207.247165]  do_syscall_64+0x49/0xc0
+[  207.247166]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+[  207.247167] RIP: 0033:0x7f97d350fdde
+[  207.247168] Code: 48 8b 0d b5 80 0c 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 82 80 0c 00 f7 d8 64 89 01 48
+[  207.247169] RSP: 002b:00007ffe0ef0b948 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
+[  207.247170] RAX: ffffffffffffffda RBX: 00007f97d363e204 RCX: 00007f97d350fdde
+[  207.247170] RDX: 0000564253308d10 RSI: 000056425330ba80 RDI: 000056425330aa30
+[  207.247171] RBP: 0000564253308b00 R08: 0000000000000000 R09: 00007ffe0ef0a6c0
+[  207.247171] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+[  207.247172] R13: 000056425330aa30 R14: 0000564253308d10 R15: 0000564253308b00
+[  207.247173] Modules linked in: loopfs(OE) nls_utf8 isofs vsock_loopback vmw_vsock_virtio_transport_common vmw_vsock_vmci_transport vsock snd_ens1371 snd_ac97_codec gameport ac97_bus snd_pcm snd_seq_midi snd_seq_midi_event snd_rawmidi snd_seq intel_rapl_msr intel_rapl_common snd_seq_device crct10dif_pclmul ghash_clmulni_intel snd_timer aesni_intel snd soundcore crypto_simd cryptd glue_helper vmwgfx rapl ttm drm_kms_helper cec rc_core vmw_balloon joydev input_leds serio_raw fb_sys_fops syscopyarea sysfillrect sysimgblt vmw_vmci mac_hid sch_fq_codel parport_pc ppdev lp drm parport ip_tables x_tables autofs4 hid_generic usbhid hid mptspi mptscsih mptbase crc32_pclmul ahci pcnet32 libahci xhci_pci mii xhci_pci_renesas scsi_transport_spi i2c_piix4 psmouse pata_acpi
+[  207.247192] CR2: 0000000000000068
+[  207.247193] ---[ end trace 6dbd156f85cbc677 ]---
+[  207.247195] RIP: 0010:legacy_get_tree+0x33/0x50
+[  207.247195] Code: 53 48 89 fb 48 8b 7f 28 48 8b 4b 30 48 8b 53 70 8b b3 88 00 00 00 48 8b 47 20 48 8b 09 e8 25 0f ad 00 48 3d 00 f0 ff ff 77 0d <48> 83 78 68 00 74 09 48 89 43 40 31 c0 5b 5d c3 0f 0b 66 66 2e 0f
+[  207.247196] RSP: 0018:ffffb30241aafe60 EFLAGS: 00010207
+[  207.247196] RAX: 0000000000000000 RBX: ffff8b81545f69c0 RCX: 0000000000000027
+[  207.247197] RDX: 0000000000000000 RSI: 0000000000000082 RDI: ffff8b81b5e98cd8
+[  207.247197] RBP: ffffb30241aafe68 R08: ffff8b81b5e98cd0 R09: 0000000000000004
+[  207.247198] R10: 0000000000000000 R11: 0000000000000001 R12: ffff8b81545f69c0
+[  207.247198] R13: 0000000000000000 R14: ffff8b81684fccc0 R15: ffff8b81545f69c0
+[  207.247199] FS:  00007f97d32ad840(0000) GS:ffff8b81b5e80000(0000) knlGS:0000000000000000
+[  207.247200] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  207.247200] CR2: 0000000000000068 CR3: 000000021903a002 CR4: 00000000003606e0
+[  207.247299] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+[  207.247300] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
